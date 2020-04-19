@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import express from 'express';
 import routes from './routes';
 
-import './databse';
+import './database';
 
 const app = express();
 

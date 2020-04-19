@@ -5,6 +5,8 @@ import fs from 'fs';
 import uploadConfig from '../config/upload';
 import User from '../models/Users';
 
+import AppError from '../errors/AppError';
+
 interface Request {
   user_id: string;
   avatarFilename: string;
@@ -16,7 +18,7 @@ class UpdateUserAvatarService {
 
     const user = await usersRepository.findOne(user_id);
     if (!user) {
-      throw new Error('Only authenticated users can change avatar');
+      throw new AppError('Only authenticated users can change avatar', 401);
     }
 
     if (user.avatar) {
@@ -27,12 +29,12 @@ class UpdateUserAvatarService {
       if (userAvatarFileExists) {
         await fs.promises.unlink(userAvatarFilePath);
       }
-
-      user.avatar = avatarFilename;
-      await usersRepository.save(user);
-
-      return user;
     }
+
+    user.avatar = avatarFilename;
+    await usersRepository.save(user);
+
+    return user;
   }
 }
 

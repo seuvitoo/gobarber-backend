@@ -1,2 +1,6 @@
+.vscode/
 node_modules
 yarn.lock
+temp/
+tmp/*
+!tmp/.gitkeep

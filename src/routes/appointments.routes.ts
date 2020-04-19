@@ -10,7 +10,7 @@ import ensureLogin from '../middlewares/ensureLogin';
 const appointmentsRouter = Router();
 appointmentsRouter.use(ensureLogin);
 
-appointmentsRouter.get('/', ensureLogin, async (request, response) => {
+appointmentsRouter.get('/', async (request, response) => {
   const appointmentsRepository = getCustomRepository(AppointmentsRepository);
   const appointments = await appointmentsRepository.find();
   return response.json(appointments);

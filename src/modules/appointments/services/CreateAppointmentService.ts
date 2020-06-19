@@ -1,4 +1,5 @@
 import { startOfHour } from 'date-fns';
+import 'reflect-metadata';
 import { injectable, inject } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 import Appointment from '@modules/appointments/infra/typeorm/entities/Appointment';

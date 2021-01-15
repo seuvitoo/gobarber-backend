@@ -13,4 +13,13 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   testMatch: ['**/*.spec.ts'],
+  collectCoverage: true,
+  collectCoverageFrom:[
+    '<rootDir>/src/modules/**/services/*.ts'
+  
+  ],
+  coverageReporters:[
+    "text-summary",
+    "lcov",
+  ]
 };

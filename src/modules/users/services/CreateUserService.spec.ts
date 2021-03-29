@@ -1,23 +1,22 @@
 import AppError from '@shared/errors/AppError';
 
-
 import CreateUserService from './CreateUserService';
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
-import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider'
+import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
 
 describe('CreateUser', () => {
   it('should be able to create a new user', async () => {
     const fakeHashProvider = new FakeHashProvider();
     const fakeUserRepository = new FakeUsersRepository();
     const createUser = new CreateUserService(
-      fakeUserRepository, fakeHashProvider
+      fakeUserRepository,
+      fakeHashProvider,
     );
 
     const user = await createUser.execute({
       name: 'John Doe',
       email: 'john@teste.com.br',
-      password: '123456'
-
+      password: '123456',
     });
     expect(user).toHaveProperty('id');
   });
@@ -27,22 +26,21 @@ describe('CreateUser', () => {
     const fakeHashProvider = new FakeHashProvider();
 
     const createUser = new CreateUserService(
-      fakeUserRepository, fakeHashProvider
+      fakeUserRepository,
+      fakeHashProvider,
     );
 
     const user = await createUser.execute({
       name: 'John Doe',
       email: 'john@teste.com.br',
-      password: '123456'
-
+      password: '123456',
     });
-    expect(
+    await expect(
       createUser.execute({
         name: 'John Doe',
         email: 'john@teste.com.br',
-        password: '123456'
+        password: '123456',
       }),
-    ).rejects.toBeInstanceOf(AppError)
+    ).rejects.toBeInstanceOf(AppError);
   });
-
 });

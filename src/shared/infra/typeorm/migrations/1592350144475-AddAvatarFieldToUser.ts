@@ -4,7 +4,7 @@ export default class AddAvatarFieldToUser1592350144475
   implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.addColumn(
-      'user',
+      'users',
       new TableColumn({
         name: 'avatar',
         type: 'varchar',
@@ -14,6 +14,6 @@ export default class AddAvatarFieldToUser1592350144475
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropColumn('user', 'avatar');
+    await queryRunner.dropColumn('users', 'avatar');
   }
 }

@@ -24,7 +24,7 @@ export default class AlterProviderFieldsToProviderId1592350076719
         name: 'AppointmentProvider',
         columnNames: ['provider_id'],
         referencedColumnNames: ['id'],
-        referencedTableName: 'user',
+        referencedTableName: 'users',
         onDelete: 'SET NULL',
         onUpdate: 'CASCADE',
       }),

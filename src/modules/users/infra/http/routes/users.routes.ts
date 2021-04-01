@@ -13,11 +13,11 @@ const upload = multer(uploadConfig);
 
 usersRouter.post('/', usersController.create);
 
-usersRouter.patch(
-  '/avatar',
-  ensureLogin,
-  upload.single('avatar'),
-  userAvatarController.update,
-);
+// usersRouter.patch(
+//   '/avatar',
+//   ensureLogin,
+//   upload.single('avatar'),
+//   userAvatarController.update,
+// );
 
 export default usersRouter;

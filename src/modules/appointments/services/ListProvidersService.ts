@@ -19,7 +19,9 @@ class ListProvidersService {
       except_user_id: user_id,
     });
 
-    return users;
+    //retornando a senha
+    console.log(users)
+    return users
   }
 }
 

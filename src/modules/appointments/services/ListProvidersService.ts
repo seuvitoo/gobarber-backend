@@ -20,7 +20,6 @@ class ListProvidersService {
     });
 
     //retornando a senha
-    console.log(users)
     return users
   }
 }

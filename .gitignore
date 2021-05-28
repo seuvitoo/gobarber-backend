@@ -6,3 +6,5 @@ tmp/*
 !tmp/.gitkeep
 coverage
 /src/shared/infra/typeorm/migrations
+.env
+ormconfig.json

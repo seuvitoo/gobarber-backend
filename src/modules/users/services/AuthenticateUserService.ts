@@ -22,7 +22,7 @@ class AuthenticateUserService {
     @inject('UsersRepository')
     private userRepository: IUsersRepository,
 
-    @inject('IHashProvider')
+    @inject('HashProvider')
     private hashProvider: IHashProvider,
   ) {}
 
@@ -43,7 +43,7 @@ class AuthenticateUserService {
 
     const { secret, expiresIn } = authConfig.jwt;
 
-    const token = sign({}, secret, {
+    const token = sign({}, secret , {
       subject: user.id,
       expiresIn,
     });

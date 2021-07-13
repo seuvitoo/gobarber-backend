@@ -4,7 +4,7 @@ import uploadConfig from '@config/upload';
 
 import DiskStorageProvider from './implementations/DiskStoreProvider';
 import S3StorageProvider from './implementations/S3StorageProvider';
-import IStorageProvider from './models/IStoreProvider';
+import IStorageProvider from './models/IStorageProvider';
 
 const providers = {
   disk: DiskStorageProvider,

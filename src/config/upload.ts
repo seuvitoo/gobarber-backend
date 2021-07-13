@@ -14,7 +14,7 @@ interface IUploadConfig {
 
   config: {
     disk: {};
-
+    
     aws: {
       bucket: string;
     };
@@ -26,7 +26,7 @@ const tmpFolder = path.resolve(__dirname, '..', '..', 'tmp');
 export default {
   driver: process.env.STORAGE_DRIVER,
 
-  tmpFolder: tmpFolder,
+  tmpFolder,
   uploadsFolder: path.resolve(tmpFolder, 'uploads'),
 
   multer: {

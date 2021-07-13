@@ -35,6 +35,7 @@ class User {
 
   @Expose({ name: 'avatar_url' })
   get avatar_url(): string | null {
+    
     if (!this.avatar) {
       return null;
     }

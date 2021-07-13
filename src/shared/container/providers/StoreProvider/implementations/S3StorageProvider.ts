@@ -1,8 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-
-import aws, { S3 } from 'aws-sdk';
 import mime from 'mime';
+import aws, { S3 } from 'aws-sdk';
 
 import uploadConfig from '@config/upload';
 import IStorageProvider from '../models/IStoreProvider';
@@ -12,7 +11,7 @@ class S3StorageProvider implements IStorageProvider {
 
   constructor() {
     this.client = new aws.S3({
-      region: 'us-east-1',
+      region: 'sa-east-1',
     });
   }
 
@@ -34,6 +33,7 @@ class S3StorageProvider implements IStorageProvider {
         ACL: 'public-read',
         Body: fileContent,
         ContentType,
+        ContentDisposition: `inline; filename=${file}`
       })
       .promise();
 

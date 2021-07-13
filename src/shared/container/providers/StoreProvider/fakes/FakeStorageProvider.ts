@@ -1,5 +1,5 @@
 
-import IStoreProvider from "../models/IStoreProvider";
+import IStoreProvider from "../models/IStorageProvider";
 
 class FakeStorageProvider implements IStoreProvider {
   private storage: string[] = []

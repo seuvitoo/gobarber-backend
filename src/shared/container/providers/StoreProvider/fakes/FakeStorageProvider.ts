@@ -1,12 +1,10 @@
-
-import IStoreProvider from "../models/IStoreProvider";
+import IStoreProvider from '../models/IStorageProvider';
 
 class FakeStorageProvider implements IStoreProvider {
-  private storage: string[] = []
-
+  private storage: string[] = [];
 
   public async saveFile(file: string): Promise<string> {
-    this.storage.push(file)
+    this.storage.push(file);
 
     return file;
   }
@@ -16,7 +14,7 @@ class FakeStorageProvider implements IStoreProvider {
       storageFile => storageFile == file,
     );
 
-    this.storage.splice(findIndex, 1)
+    this.storage.splice(findIndex, 1);
   }
 }
 

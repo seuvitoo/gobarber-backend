@@ -1,4 +1,4 @@
-import "reflect-metadata"
+import 'reflect-metadata';
 
 import path from 'path';
 import fs from 'fs';
@@ -8,7 +8,7 @@ import { injectable, inject } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 
 import IUsersRepository from '../repositories/IUsersRepository';
-import IStoreProvider from '@shared/container/providers/StoreProvider/models/IStoreProvider';
+import IStorageProvider from '@shared/container/providers/StoreProvider/models/IStorageProvider';
 
 import User from '@modules/users/infra/typeorm/entities/User';
 
@@ -22,9 +22,9 @@ class UpdateUserAvatarService {
     @inject('UsersRepository')
     private userRepository: IUsersRepository,
 
-    @inject('StoreProvider')
-    private storeProvider: IStoreProvider,
-  ) { }
+    @inject('StorageProvider')
+    private storageProvider: IStorageProvider,
+  ) {}
 
   public async execute({ user_id, avatarFilename }: IRequest): Promise<User> {
     const user = await this.userRepository.findById(user_id);
@@ -33,10 +33,10 @@ class UpdateUserAvatarService {
     }
 
     if (user.avatar) {
-      await this.storeProvider.deleteFile(user.avatar)
+      await this.storageProvider.deleteFile(user.avatar);
     }
 
-    const fileName = await this.storeProvider.saveFile(avatarFilename)
+    const fileName = await this.storageProvider.saveFile(avatarFilename);
 
     user.avatar = fileName;
     await this.userRepository.save(user);

@@ -1,9 +1,9 @@
-//import 'reflect-metadata';
-
 import { startOfHour, isBefore, getHours, format } from 'date-fns';
 import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
+
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
 import Appointment from '@modules/appointments/infra/typeorm/entities/Appointment';
 
@@ -23,6 +23,9 @@ class CreateAppointmentService {
 
     @inject('NotificationRepository')
     private notificationRepository: INotificationsRepository,
+
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider,
   ) {}
 
   public async execute({
@@ -67,10 +70,19 @@ class CreateAppointmentService {
     });
 
     const dateFormated = format(appointmentDate, "dd/MM/yyyy 'às' HH:mm'h'");
+    
     await this.notificationRepository.create({
       recipient_id: provider_id,
-      content: `Novo agendamento para dia ${dateFormated}`,
+      content: `Novo agendamento com  dia ${dateFormated}`,
     });
+
+  
+    await this.cacheProvider.invalidate(
+      `provider-appointments:${provider_id}:${format(
+        appointmentDate,
+        'yyyy-M-d',
+      )}`,
+    );
 
     return appointment;
   }

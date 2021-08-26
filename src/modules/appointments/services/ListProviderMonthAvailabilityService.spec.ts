@@ -1,4 +1,3 @@
-import User from '@modules/users/infra/typeorm/entities/User';
 import FakeAppointmentsRepository from '../repositories/fakes/FakeAppointmentsRepository';
 import ListProviderMonthAvailabilityService from './ListProviderMonthAvailabilityService';
 
@@ -72,6 +71,12 @@ describe('ListProviderMonthAvailability', () => {
       provider_id: 'user',
       user_id: 'user',
       date: new Date(2021, 4, 20, 17, 0, 0),
+    });
+
+    await fakeAppointmentsRepository.create({
+      provider_id: 'user',
+      user_id: 'user',
+      date: new Date(2021, 4, 21, 8, 0, 0),
     });
 
     const availability = await listProviderMonthAvailability.execute({

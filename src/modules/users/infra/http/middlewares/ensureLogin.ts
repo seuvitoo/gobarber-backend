@@ -11,7 +11,7 @@ interface ITokenPayload {
 }
 export default function ensureLogin(
   request: Request,
-  responde: Response,
+  response: Response,
   next: NextFunction,
 ): void {
   const authHeader = request.headers.authorization;

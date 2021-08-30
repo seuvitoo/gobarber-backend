@@ -20,8 +20,6 @@ export default class ProviderAppointmentsController {
       year: Number(year),
     });
 
-    console.log(appointments)
-
     return response.json(classToClass(appointments));
   }
 }

@@ -38,7 +38,7 @@ class SendForgotPasswordEmailService {
       'forgot_password.hbs',
     );
 
-    await this.mailProvider.sendMail({
+    const msg = await this.mailProvider.sendMail({
       to: {
         name: user.name,
         email: user.email,
@@ -48,10 +48,10 @@ class SendForgotPasswordEmailService {
         file: forgotPasswordTemplate,
         variables: {
           name: user.name,
-          link: `${process.env.APP_WEB_URL}/reset_password?token=${token}`,
+          link: `${process.env.APP_WEB_URL}/reset-password?token=${token}`,
         },
       },
-    });
+    }); 
   }
 }
 

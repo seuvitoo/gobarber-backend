@@ -57,6 +57,9 @@ class AppointmentsRepository implements IAppointmentsRepository {
       },
     });
 
+    console.log("Passou pleo Repositório Mes")
+    console.log(appointments)
+
     return appointments;
   }
 

@@ -4,6 +4,7 @@ import IAppointmentsRepository from '@modules/appointments/repositories/IAppoint
 import ICreateAppointmentDTO from '@modules/appointments/dtos/ICreateAppointmentDTO';
 import IFindAllInMonthFromProviderDTO from '@modules/appointments/dtos/IFindAllInMonthFromProviderDTO';
 import IFindAllInDayFromProviderDTO from '@modules/appointments/dtos/IFindAllInDayFromProviderDTO';
+
 import Appointment from '../entities/Appointment';
 
 class AppointmentsRepository implements IAppointmentsRepository {
@@ -11,22 +12,6 @@ class AppointmentsRepository implements IAppointmentsRepository {
 
   constructor() {
     this.ormRepository = getRepository(Appointment);
-  }
-
-  public async create({
-    provider_id,
-    user_id,
-    date,
-  }: ICreateAppointmentDTO): Promise<Appointment> {
-    const appointment = this.ormRepository.create({
-      provider_id,
-      user_id,
-      date,
-    });
-
-    await this.ormRepository.save(appointment);
-
-    return appointment;
   }
 
   public async findByDate(
@@ -57,8 +42,8 @@ class AppointmentsRepository implements IAppointmentsRepository {
       },
     });
 
-    console.log("Passou pleo Repositório Mes")
-    console.log(appointments)
+    console.log('Passou pleo Repositório Mes');
+    console.log(appointments);
 
     return appointments;
   }
@@ -69,24 +54,40 @@ class AppointmentsRepository implements IAppointmentsRepository {
     month,
     year,
   }: IFindAllInDayFromProviderDTO): Promise<Appointment[]> {
-    const parsedMonth = String(month).padStart(2, '0');
     const parsedDay = String(day).padStart(2, '0');
+    const parsedMonth = String(month).padStart(2, '0');
 
     const appointments = await this.ormRepository.find({
       where: {
         provider_id,
         date: Raw(
-          (dateFieldName) =>
+          dateFieldName =>
             `to_char(${dateFieldName}, 'DD-MM-YYYY') = '${parsedDay}-${parsedMonth}-${year}'`,
         ),
       },
       relations: ['user'],
     });
 
-    console.log("Passou pelo repositorio")
+    console.log('Passou pelo repositorio all in day from provider');
     console.log(appointments);
 
     return appointments;
+  }
+
+  public async create({
+    provider_id,
+    user_id,
+    date,
+  }: ICreateAppointmentDTO): Promise<Appointment> {
+    const appointment = this.ormRepository.create({
+      provider_id,
+      user_id,
+      date,
+    });
+
+    await this.ormRepository.save(appointment);
+
+    return appointment;
   }
 }
 
